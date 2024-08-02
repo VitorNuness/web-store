@@ -1,2 +1,6 @@
 .idea
 /vendor/
+/node_modules/
+/storage/*
+/public/css
+/public/mix-manifest.json

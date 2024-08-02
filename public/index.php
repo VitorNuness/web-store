@@ -12,4 +12,4 @@ $filteredProducts = array_filter($products, static fn (array $products) => $prod
 
 $title = 'My WebStore';
 
-require __DIR__ . '/../resource/views/index.phtml';
+require __DIR__ . '/../resources/views/index.phtml';
