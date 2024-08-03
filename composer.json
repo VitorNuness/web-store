@@ -4,7 +4,8 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "Core\\": "core/"
         },
         "files": [
             "src/helpers.php"
@@ -17,5 +18,7 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {
+        "ext-pdo": "*"
+    }
 }
