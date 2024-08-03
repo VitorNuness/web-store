@@ -6,12 +6,41 @@ namespace Core\Database;
 
 use PDO;
 use PDOException;
+use PDOStatement;
 
 class Connector
 {
-    public function connect(): PDO
+    protected PDO $connection;
+    protected ?string $query = null;
+
+    public function __construct()
     {
         $dsn = 'mysql:host=127.0.0.1;port=3306;dbname=pinguim_academy_webstore;charset=utf8mb4';
-        return new PDO($dsn, 'root');
+        $this->connection = new PDO($dsn, 'root');
+    }
+
+    public function query(string $query): self
+    {
+        $this->query = $query;
+
+        return $this;
+    }
+
+    public function get(): array
+    {
+        return $this->getStatement()->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function first(): object
+    {
+        return $this->getStatement()->fetch(PDO::FETCH_OBJ);
+    }
+
+    private function getStatement(): PDOStatement
+    {
+        $statement = $this->connection->prepare($this->query);
+        $statement->execute();
+
+        return $statement;
     }
 }
