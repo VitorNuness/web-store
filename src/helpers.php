@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Core\Container\Container;
+
 if (!function_exists('base_path')) {
     function base_path(string $path = ''): string
     {
@@ -71,5 +73,18 @@ if (!function_exists('env')) {
     function env(string $key, $default = null): mixed
     {
         return $_ENV[$key] ?? $default;
+    }
+}
+
+if (!function_exists('container')) {
+    function container($service = null): mixed
+    {
+        $container = Container::getInstance();
+
+        if (is_string($service)) {
+            return $container->get($service);
+        }
+
+        return $container;
     }
 }

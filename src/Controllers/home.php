@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-use Core\Database\Connector;
-use Core\Database\DatabaseConfig;
-
-$db = new Connector(DatabaseConfig::getInstance());
+$db = container('db');
 
 $products = $db
     ->query('SELECT * FROM products')

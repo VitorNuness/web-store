@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
+use Core\Application;
+use Core\Container\Container;
+
 require __DIR__ . '/../vendor/autoload.php';
 
-use Dotenv\Dotenv;
-
-$dotenv = Dotenv::createImmutable(base_path());
-$dotenv->load();
+(new Application(
+    Container::getInstance()
+))->run();
 
 $uri = $_SERVER['REQUEST_URI'];
 $uri = parse_url($uri, PHP_URL_PATH);

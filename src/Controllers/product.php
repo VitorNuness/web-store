@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-use Core\Database\Connector;
-use Core\Database\DatabaseConfig;
-
-$db = new Connector(DatabaseConfig::getInstance());
+$db = container('db');
 
 $product = $db
     ->query('SELECT * FROM products WHERE id = :id', ['id' => $_GET['id']])
