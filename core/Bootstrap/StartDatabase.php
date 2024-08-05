@@ -6,7 +6,6 @@ namespace Core\Bootstrap;
 
 use Core\Container\Container;
 use Core\Database\Connector;
-use Core\Database\DatabaseConfig;
 
 class StartDatabase
 {
@@ -17,9 +16,8 @@ class StartDatabase
 
     public function handle()
     {
-        $config = $this->container->get('db.config');
-        $connection = new Connector($config);
+        $connection = $this->container->build(Connector::class);
 
-        $this->container->set('db', $connection);
+        $this->container->set($connection);
     }
 }

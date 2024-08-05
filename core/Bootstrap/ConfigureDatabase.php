@@ -16,6 +16,6 @@ class ConfigureDatabase
 
     public function handle()
     {
-        $this->container->set('db.config', new DatabaseConfig());
+        $this->container->set(new DatabaseConfig());
     }
 }

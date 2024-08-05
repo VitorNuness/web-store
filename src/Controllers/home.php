@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-$db = container('db');
+use Core\Database\Connector;
+
+$db = container(Connector::class);
 
 $products = $db
     ->query('SELECT * FROM products')
