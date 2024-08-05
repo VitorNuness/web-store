@@ -16,7 +16,7 @@
                         <h3 class="text-sm font-medium text-gray-800">
                             <?= $product->name ?>
                         </h3>
-                        <p class="mt-1 text-sm text-gray-500">
+                        <p class="mt-1 text-sm text-gray-500 h-24 overflow-hidden hover:overflow-auto">
                             <?= $product->description ?>
                         </p>
                         <div class="mt-3 text-sm text-gray-800">

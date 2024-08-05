@@ -8,7 +8,7 @@ use Core\Database\DatabaseConfig;
 $db = new Connector(DatabaseConfig::getInstance());
 
 $product = $db
-    ->query('SELECT * FROM products WHERE id = 1')
+    ->query('SELECT * FROM products WHERE id = :id', ['id' => $_GET['id']])
     ->first();
 
 $title = $product->name . ' | My WebStore';
