@@ -63,4 +63,11 @@ class Connector
             $statement->bindValue($key, $value, $pdoParams);
         }
     }
+
+    public function insert(): false | string
+    {
+        $this->getStatement();
+
+        return $this->connection->lastInsertId();
+    }
 }

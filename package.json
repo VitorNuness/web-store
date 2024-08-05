@@ -4,6 +4,7 @@
     "prod": "npx mix --production"
   },
   "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
     "autoprefixer": "^10.4.19",
     "laravel-mix": "^6.0.49",
     "postcss": "^8.4.40",
