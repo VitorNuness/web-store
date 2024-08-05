@@ -88,3 +88,10 @@ if (!function_exists('container')) {
         return $container;
     }
 }
+
+if (!function_exists('view')) {
+    function view(string $view): string
+    {
+        return resource_path('views' . DIRECTORY_SEPARATOR . $view);
+    }
+}
