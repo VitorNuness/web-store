@@ -3,8 +3,11 @@
 declare(strict_types=1);
 
 use Core\Database\Connector;
+use Core\Database\DatabaseConfig;
 
-$product = (new Connector())
+$db = new Connector(DatabaseConfig::getInstance());
+
+$product = $db
     ->query('SELECT * FROM products WHERE id = 1')
     ->first();
 

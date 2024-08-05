@@ -4,3 +4,4 @@
 /storage/*
 /public/css
 /public/mix-manifest.json
+.env

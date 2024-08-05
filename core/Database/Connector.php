@@ -13,10 +13,11 @@ class Connector
     protected PDO $connection;
     protected ?string $query = null;
 
-    public function __construct()
+    public function __construct(DatabaseConfig $config)
     {
-        $dsn = 'mysql:host=127.0.0.1;port=3306;dbname=pinguim_academy_webstore;charset=utf8mb4';
-        $this->connection = new PDO($dsn, 'root');
+        $dsn = 'mysql:' . http_build_query($config->getConfig(), arg_separator: ';');
+
+        $this->connection = new PDO($dsn, $config->getUsername(), $config->getPassword());
     }
 
     public function query(string $query): self
