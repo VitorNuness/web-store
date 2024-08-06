@@ -21,9 +21,9 @@
             <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
                 <input type="text" id="name" name="name" class="mt-1 block w-full form-input py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required maxlength="100" value="<?= old('name') ?>">
-                <?php if (isset($errors['name'])) : ?>
+                <?php if ($error = validation_error('name')) : ?>
                     <span class="text-sm text-red-400">
-                        <?= $errors['name'][0] ?>
+                        <?= $error ?>
                     </span>
                 <?php endif; ?>
 
@@ -32,9 +32,9 @@
             <div class="mb-4">
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                 <input type="email" id="email" name="email" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required maxlength="100" value="<?= old('email') ?>">
-                <?php if (isset($errors['email'])) : ?>
+                <?php if ($error = validation_error('email')) : ?>
                     <span class="text-sm text-red-400">
-                        <?= $errors['email'][0] ?>
+                        <?= $error ?>
                     </span>
                 <?php endif; ?>
             </div>
@@ -42,14 +42,15 @@
             <div class="mb-4">
                 <label for="source" class="block text-sm font-medium text-gray-700">Where did you know us?</label>
                 <select name="source" id="source" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                    <option value="google">Google</option>
-                    <option value="facebook">Facebook</option>
-                    <option value="twitter">Twitter</option>
-                    <option value="instagram">Instagram</option>
+                    <?php foreach ($sources as $source) : ?>
+                        <option value="<?= $source ?>" <?= old('source') === $source ? 'selected' : '' ?>>
+                            <?= ucfirst($source) ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
-                <?php if (isset($errors['source'])) : ?>
+                <?php if ($error = validation_error('source')) : ?>
                     <span class="text-sm text-red-400">
-                        <?= $errors['source'][0] ?>
+                        <?= $error ?>
                     </span>
                 <?php endif; ?>
             </div>
@@ -57,9 +58,9 @@
             <div class="mb-4">
                 <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
                 <textarea id="message" name="message" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required maxlength="255"><?= old('message') ?></textarea>
-                <?php if (isset($errors['message'])) : ?>
+                <?php if ($error = validation_error('message')) : ?>
                     <span class="text-sm text-red-400">
-                        <?= $errors['message'][0] ?>
+                        <?= $error ?>
                     </span>
                 <?php endif; ?>
             </div>

@@ -12,6 +12,8 @@ $validator = new \Core\Validation\Validator([
 ], $_POST);
 
 if ($validator->fails()) {
+    $_SESSION['errors'] = $validator->getErrors();
+
     header('Location: /contact');
     exit;
 }
@@ -19,10 +21,9 @@ if ($validator->fails()) {
 /** @var Connector $db */
 $db = container(Connector::class);
 
-$id = $db
+$db
     ->query('INSERT INTO messages (name, email, source, message) VALUES (:name, :email, :source, :message)', $_POST)
     ->insert();
 
-$_POST = [];
-
-!$id ? $failure = true : $messageWasSent = true;
+unset($_SESSION['old']);
+header('Location: /contact');
