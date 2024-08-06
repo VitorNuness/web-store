@@ -7,6 +7,7 @@ namespace Core;
 use Closure;
 use Core\Router\Router;
 use Core\Container\Container;
+use Core\Middlewares\Middleware;
 
 class Application
 {
@@ -43,9 +44,20 @@ class Application
         $uri = $_SERVER['REQUEST_URI'];
         $uri = parse_url($uri, PHP_URL_PATH);
 
+        $this->runGlobalMiddlewares();
+
         /** @var Router $router */
         $router = $this->container->get(Router::class);
         $router->findRoute($uri, $_SERVER['REQUEST_METHOD']);
+    }
+
+    private function runGlobalMiddlewares(): void
+    {
+        $middlewares = Middleware::getGlobalMiddlewares();
+
+        foreach ($middlewares as $middleware) {
+            $this->container->build($middleware)->handle();
+        }
     }
 
     public function singleton(Closure $closure): void

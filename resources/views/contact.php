@@ -20,7 +20,7 @@
         <form method="post">
             <div class="mb-4">
                 <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                <input type="text" id="name" name="name" class="mt-1 block w-full form-input py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required maxlength="100" value="<?= $_POST['name'] ?? '' ?>">
+                <input type="text" id="name" name="name" class="mt-1 block w-full form-input py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required maxlength="100" value="<?= old('name') ?>">
                 <?php if (isset($errors['name'])) : ?>
                     <span class="text-sm text-red-400">
                         <?= $errors['name'][0] ?>
@@ -31,7 +31,7 @@
 
             <div class="mb-4">
                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input type="email" id="email" name="email" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required maxlength="100" value="<?= $_POST['email'] ?? '' ?>">
+                <input type="email" id="email" name="email" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required maxlength="100" value="<?= old('email') ?>">
                 <?php if (isset($errors['email'])) : ?>
                     <span class="text-sm text-red-400">
                         <?= $errors['email'][0] ?>
@@ -56,7 +56,7 @@
 
             <div class="mb-4">
                 <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
-                <textarea id="message" name="message" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required maxlength="255"><?= $_POST['email'] ?? '' ?></textarea>
+                <textarea id="message" name="message" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required maxlength="255"><?= old('message') ?></textarea>
                 <?php if (isset($errors['message'])) : ?>
                     <span class="text-sm text-red-400">
                         <?= $errors['message'][0] ?>

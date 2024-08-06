@@ -95,3 +95,14 @@ if (!function_exists('view')) {
         return resource_path('views' . DIRECTORY_SEPARATOR . $view);
     }
 }
+
+if (!function_exists('old')) {
+    function old(string $key): mixed
+    {
+        $value = $_SESSION['old'][$key] ?? '';
+
+        unset($_SESSION['old'][$key]);
+
+        return $value;
+    }
+}
