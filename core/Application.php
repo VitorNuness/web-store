@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Core;
 
 use Core\Container\Container;
+use Core\Router\Router;
 
 class Application
 {
@@ -19,17 +20,30 @@ class Application
     ) {
     }
 
-    public function run()
+    public function run(): void
     {
         $this->bootstrap();
+        $this->dispatchToRouter();
     }
 
-    private function bootstrap()
+    private function bootstrap(): void
     {
         foreach ($this->bootstrappers as $bootstrapper) {
             (new $bootstrapper(
                 $this->container
             ))->handle();
         }
+    }
+
+    private function dispatchToRouter(): void
+    {
+        $uri = $_SERVER['REQUEST_URI'];
+        $uri = parse_url($uri, PHP_URL_PATH);
+
+        require_once base_path('routes/web.php');
+
+        /** @var Router $router */
+        $router = container(Router::class);
+        $router->findRoute($uri, $_SERVER['REQUEST_METHOD']);
     }
 }

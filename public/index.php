@@ -10,14 +10,3 @@ require __DIR__ . '/../vendor/autoload.php';
 (new Application(
     Container::getInstance()
 ))->run();
-
-$uri = $_SERVER['REQUEST_URI'];
-$uri = parse_url($uri, PHP_URL_PATH);
-
-$routes = require base_path('routes/web.php');
-
-if (array_key_exists($uri, $routes)) {
-    require base_path('src/Controllers/' . $routes[$uri] . '.php');
-} else {
-    abort();
-}
