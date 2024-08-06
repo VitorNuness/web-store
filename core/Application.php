@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Core;
 
-use Core\Container\Container;
+use Closure;
 use Core\Router\Router;
+use Core\Container\Container;
 
 class Application
 {
@@ -13,6 +14,8 @@ class Application
         \Core\Bootstrap\LoadEnvFile::class,
         \Core\Bootstrap\ConfigureDatabase::class,
         \Core\Bootstrap\StartDatabase::class,
+        \Core\Bootstrap\StartRouter::class,
+        \Core\Bootstrap\LoadRoutes::class,
     ];
 
     public function __construct(
@@ -30,7 +33,7 @@ class Application
     {
         foreach ($this->bootstrappers as $bootstrapper) {
             (new $bootstrapper(
-                $this->container
+                $this
             ))->handle();
         }
     }
@@ -40,10 +43,13 @@ class Application
         $uri = $_SERVER['REQUEST_URI'];
         $uri = parse_url($uri, PHP_URL_PATH);
 
-        require_once base_path('routes/web.php');
-
         /** @var Router $router */
-        $router = container(Router::class);
+        $router = $this->container->get(Router::class);
         $router->findRoute($uri, $_SERVER['REQUEST_METHOD']);
+    }
+
+    public function singleton(Closure $closure): void
+    {
+        $this->container->set($closure($this->container));
     }
 }

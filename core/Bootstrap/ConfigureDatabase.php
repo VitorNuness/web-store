@@ -4,18 +4,19 @@ declare(strict_types=1);
 
 namespace Core\Bootstrap;
 
+use Core\Application;
 use Core\Container\Container;
 use Core\Database\DatabaseConfig;
 
 class ConfigureDatabase
 {
     public function __construct(
-        private Container $container
+        private Application $application
     ) {
     }
 
-    public function handle()
+    public function handle(): void
     {
-        $this->container->set(new DatabaseConfig());
+        $this->application->singleton(fn () => new DatabaseConfig());
     }
 }

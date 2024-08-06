@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Core\Router\Router;
 
 /** @var Router $router */
-$router = container()->build(Router::class);
+$router = container(Router::class);
 
 //region Public Routes
 $router->get('/', 'home');
