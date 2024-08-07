@@ -4,48 +4,59 @@ declare(strict_types=1);
 
 namespace Core\Router;
 
+use Core\Middlewares\Middleware;
+
 class Router
 {
     private array $routes = [];
 
-    public function get(string $uri, string $controller): void
+    public function get(string $uri, string $controller): self
     {
-        $this->addMethod($uri, $controller, 'GET');
+        return $this->addMethod($uri, $controller, 'GET');
     }
 
-    public function post(string $uri, string $controller): void
+    public function post(string $uri, string $controller): self
     {
-        $this->addMethod($uri, $controller, 'POST');
+        return $this->addMethod($uri, $controller, 'POST');
     }
 
-    public function put(string $uri, string $controller)
+    public function put(string $uri, string $controller): self
     {
-        $this->addMethod($uri, $controller, 'PUT');
+        return $this->addMethod($uri, $controller, 'PUT');
     }
 
-    public function patch(string $uri, string $controller)
+    public function patch(string $uri, string $controller): self
     {
-        $this->addMethod($uri, $controller, 'PATCH');
+        return $this->addMethod($uri, $controller, 'PATCH');
     }
 
-    public function delete(string $uri, string $controller)
+    public function delete(string $uri, string $controller): self
     {
-        $this->addMethod($uri, $controller, 'DELETE');
+        return $this->addMethod($uri, $controller, 'DELETE');
     }
 
-    private function addMethod(string $uri, string $controller, string $method): void
+    public function middlewares(...$middlewares): void
+    {
+        $this->routes[array_key_last($this->routes)]['middlewares'] = $middlewares;
+    }
+
+    private function addMethod(string $uri, string $controller, string $method): self
     {
         $this->routes[] = [
             'uri'        => $uri,
             'controller' => $controller,
             'method'     => $method
         ];
+
+        return $this;
     }
 
     public function findRoute(string $uri, string $method): void
     {
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
+                $this->checkAndRunMiddlewares($route);
+
                 require base_path('src/Controllers/' . $route['controller'] . '.php');
 
                 return;
@@ -53,5 +64,18 @@ class Router
         }
 
         abort();
+    }
+
+    private function checkAndRunMiddlewares(array $route): void
+    {
+        $baseMiddleware = new Middleware();
+
+        if (isset($route['middlewares'])) {
+            foreach ($route['middlewares'] as $middleware) {
+                container()
+                    ->build($baseMiddleware->getMiddleware($middleware))
+                    ->handle();
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form action="/admin/login" method="POST" class="space-y-6">
+        <form action="/auth/login" method="POST" class="space-y-6">
             <?php if ($error) : ?>
                 <div class="mb-4 px-4 py-4 w-full rounded-lg bg-red-400 text-red-900 font-bold">
                     <?= $error ?>

@@ -14,10 +14,13 @@ $router->get('/contact', 'contact/create');
 $router->post('/contact', 'contact/store');
 //endregion
 
-//region Private Routes
-$router->get('/admin/login', 'admin/login/index');
-$router->post('/admin/login', 'admin/login/login');
-$router->get('/admin/messages', 'admin/messages');
+//region Auth Routes
+$router->get('/auth', 'auth/index');
+$router->post('/auth/login', 'auth/login');
+//endregion
+
+//region Admin Routes
+$router->get('/admin/messages', 'admin/messages')->middlewares('auth', 'admin');
 //endregion
 
 container()->set($router);
