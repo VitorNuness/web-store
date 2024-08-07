@@ -6,10 +6,7 @@ namespace Core\Middlewares;
 
 class Middleware
 {
-    protected static array $globalMiddlewares = [
-        StartSession::class,
-        FlashOldData::class,
-    ];
+    protected static array $globalMiddlewares = [];
 
     public static function getGlobalMiddlewares(): array
     {
