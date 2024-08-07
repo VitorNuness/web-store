@@ -78,6 +78,11 @@ if (!function_exists('env')) {
 }
 
 if (!function_exists('container')) {
+    /**
+     * @template T of object|null
+     * @param string|class-string<T>|null $service
+     * @return (T is null ? Container : |class-string<T>)
+     */
     function container($service = null): mixed
     {
         $container = Container::getInstance();
