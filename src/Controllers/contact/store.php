@@ -20,8 +20,7 @@ if ($validator->fails()) {
         ->withErrors($validator->getErrors())
         ->withInput($_POST);
 
-    header('Location: /contact');
-    exit;
+    redirect('/contact');
 }
 
 /** @var Connector $db */
@@ -40,4 +39,4 @@ if (!$id) {
 }
 
 $session->flash($type, $message);
-header('Location: /contact');
+redirect('/contact');

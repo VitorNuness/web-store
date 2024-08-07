@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace Core\Middlewares;
 
-use Core\Session\Session;
-
 class Auth
 {
     public function __construct(
-        private Session $session,
+        private \Core\Auth\Auth $auth,
     ) {
     }
 
     public function handle(): void
     {
-        if ($this->session->get('user') === null) {
-            header('Location: /auth');
-            exit;
+        if ($this->auth->user() === null) {
+            redirect('/auth');
         }
     }
 }

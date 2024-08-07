@@ -65,6 +65,8 @@ class Session
 
     public function withInput(array $input): self
     {
+        $input = (new PrepareDataForFlash($input))->handle();
+
         $this->flash('input', $input);
 
         return $this;
