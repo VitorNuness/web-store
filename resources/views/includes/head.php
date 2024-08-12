@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?= $title ?? '' ?></title>
     <link rel="stylesheet" href="<?= mix('/css/app.css') ?>">
+    <!-- <script defer src="<?= mix('/js/app.js') ?>"></script> -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/cdn.min.js"></script>
 </head>
 
 <body class="h-full">

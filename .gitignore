@@ -3,5 +3,6 @@
 /node_modules/
 /storage/*
 /public/css
+/public/js
 /public/mix-manifest.json
 .env
