@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Core\Middlewares;
 
+use Core\Auth\Middlewares\StartAndAttachUser;
 use Exception;
 
 class Middleware
 {
-    protected static array $globalMiddlewares = [];
+    protected static array $globalMiddlewares = [
+        StartAndAttachUser::class,
+    ];
 
     protected array $middlewares = [
         'auth' => Auth::class,
